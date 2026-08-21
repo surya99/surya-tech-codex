@@ -77,3 +77,16 @@
 @keyframes band-scan{0%,20%{transform:translateX(-100%)}70%,100%{transform:translateX(100%)}}
 @media(max-width:560px){.verb-set{height:62px}.verb-set span{min-width:175px;padding-inline:20px;font-size:15px}.verb-track{animation-duration:22s}}
 @media(prefers-reduced-motion:reduce){.verb-track,.verb-band:before{animation:none}.verb-track{width:100%}.verb-set:first-child{width:100%;justify-content:space-around}.verb-set:first-child span{min-width:auto;padding:12px}.verb-set:first-child span:nth-of-type(even),.verb-set:first-child i,.verb-set[aria-hidden="true"]{display:none}}
+
+/* Capability words with lightweight action symbols */
+.verb-set{gap:26px}
+.verb-set span{gap:12px;min-width:205px;padding-inline:24px;font-family:"DM Sans",sans-serif;font-size:15px;font-style:normal;font-weight:600;letter-spacing:.01em}
+.action-icon{display:grid;place-items:center;width:30px;height:30px;border:1px solid rgba(64,220,166,.34);border-radius:9px;background:rgba(26,169,129,.1);color:#57ddb1;font:600 10px "DM Mono",monospace;box-shadow:0 0 16px rgba(26,169,129,.08)}
+.icon-code{animation:code-breathe 2.4s ease-in-out infinite}.icon-architect{animation:architect-turn 5s ease-in-out infinite}.icon-learn{animation:learn-open 2.8s ease-in-out infinite}.icon-share{animation:share-rise 2.2s ease-in-out infinite}.icon-create{animation:create-pulse 2.5s ease-in-out infinite}
+@keyframes code-breathe{50%{color:#fff;border-color:#57ddb1;box-shadow:0 0 18px rgba(87,221,177,.22)}}
+@keyframes architect-turn{50%{transform:rotate(45deg);border-radius:50%}}
+@keyframes learn-open{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.72);background:rgba(26,169,129,.2)}}
+@keyframes share-rise{0%,100%{transform:translate(0,0)}50%{transform:translate(3px,-3px)}}
+@keyframes create-pulse{50%{transform:scale(1.12);box-shadow:0 0 0 6px rgba(26,169,129,.08)}}
+@media(max-width:560px){.verb-set{gap:12px}.verb-set span{min-width:160px;padding-inline:16px}.action-icon{width:28px;height:28px}}
+@media(prefers-reduced-motion:reduce){.action-icon{animation:none}.verb-set:first-child span:nth-of-type(even){display:flex}}
