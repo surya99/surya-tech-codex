@@ -94,7 +94,7 @@ const recent = articles.slice(1, 5);
           <div class="recent-heading"><span>Recent notes</span><small>{String(articles.length).padStart(2, "0")} published</small></div>
           {recent.length ? recent.map((article) => (
             <a href={`${base}articles/${article.id}/`}><small>{article.data.category}</small><strong>{article.data.title}</strong><span>{article.data.readingTime ?? getReadingTime(article.body ?? "")} →</span></a>
-          )) : <div class="next-note"><small>THE NEXT NOTE</small><strong>More practical writing is being prepared.</strong><p>Follow the RSS feed to receive the next article automatically.</p><a href={`${base}rss.xml`}>Follow via RSS ↗</a></div>}
+          )) : <div class="next-note"><small>THE NEXT NOTE</small><strong>More practical writing is being prepared.</strong><p>Follow the publication to receive the next article automatically.</p><a href={`${base}subscribe/`}>Choose how to follow ↗</a></div>}
         </aside>
       </div>
     )}

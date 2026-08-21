@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const feedUrl = "https://surya99.github.io/surya-tech-codex/rss.xml";
+const feedlyUrl = `https://feedly.com/i/subscription/feed/${encodeURIComponent(feedUrl)}`;
+const inoreaderUrl = `https://www.inoreader.com/?add_feed=${encodeURIComponent(feedUrl)}`;
+---
+<BaseLayout title="Follow Surya Tech Codex" description="Follow new Surya Tech Codex articles using Feedly, Inoreader, or any RSS reader.">
+  <section class="page-hero shell subscribe-hero">
+    <span class="kicker">Never miss a field note</span>
+    <h1>Follow in the way that <em>works for you.</em></h1>
+    <p>RSS delivers every new article directly to your reader—without algorithms, advertisements, or an overflowing inbox.</p>
+  </section>
+  <section class="shell follow-options" aria-label="Subscription options">
+    <a class="follow-card" href={feedlyUrl} target="_blank" rel="noopener noreferrer">
+      <span class="follow-icon feedly-icon" aria-hidden="true">F</span>
+      <div><small>RECOMMENDED</small><h2>Follow with Feedly</h2><p>Add Surya Tech Codex to a clean reading list.</p></div><b>↗</b>
+    </a>
+    <a class="follow-card" href={inoreaderUrl} target="_blank" rel="noopener noreferrer">
+      <span class="follow-icon inoreader-icon" aria-hidden="true">I</span>
+      <div><small>RSS READER</small><h2>Follow with Inoreader</h2><p>Receive new articles in your Inoreader account.</p></div><b>↗</b>
+    </a>
+    <div class="follow-card copy-feed-card">
+      <span class="follow-icon copy-icon" aria-hidden="true">⌁</span>
+      <div><small>ANY RSS APP</small><h2>Copy the feed address</h2><p>Paste it into the RSS reader you already use.</p></div>
+      <button class="copy-feed" type="button" data-feed={feedUrl}>Copy</button>
+      <span class="feed-copy-status" aria-live="polite"></span>
+    </div>
+  </section>
+  <div class="shell raw-feed-note">
+    <p>Already know RSS? <a href={feedUrl}>Open the raw XML feed →</a></p>
+  </div>
+</BaseLayout>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>(".copy-feed");
+  const status = document.querySelector<HTMLElement>(".feed-copy-status");
+  button?.addEventListener("click", async () => {
+    const feed = button.dataset.feed ?? "";
+    try {
+      await navigator.clipboard.writeText(feed);
+      button.textContent = "Copied";
+      if (status) status.textContent = "Feed address copied to clipboard.";
+    } catch {
+      window.prompt("Copy this RSS feed address:", feed);
+    }
+  });
+</script>
