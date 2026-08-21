@@ -1,142 +1,116 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
 import Subscribe from "../components/Subscribe.astro";
+import { getCollection } from "astro:content";
 import { getReadingTime } from "../utils/readingTime";
 
 const base = import.meta.env.BASE_URL;
 const articles = (await getCollection("articles", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf())
-  .slice(0, 3);
-
-const focusAreas = [
-  { number: "01", title: ".NET & C#", text: "Practical engineering patterns, clean code, performance, and production lessons.", tone: "cyan" },
-  { number: "02", title: "AI & Azure", text: "Enterprise AI systems built with Azure AI Foundry, Search, agents, and .NET.", tone: "violet" },
-  { number: "03", title: "Architecture", text: "Trade-offs, scalability, security, maintainability, and real system decisions.", tone: "orange" },
-  { number: "04", title: "Career & Building", text: "Growing from senior engineer to architect while turning ideas into products.", tone: "green" },
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+const featured = articles[0];
+const recent = articles.slice(1, 5);
+const practices = [
+  { title: ".NET engineering", text: "Reliable services, clean architecture, performance, and the practical decisions behind production software." },
+  { title: "Azure + AI", text: "Enterprise AI systems using Azure AI Foundry, Search, agents, and responsible engineering practices." },
+  { title: "Architecture", text: "Trade-offs across security, scalability, maintainability, cost, and the teams who operate the system." },
+  { title: "Career + building", text: "Growing toward technical leadership while turning useful ideas into products and opportunities." },
 ];
 ---
 <BaseLayout>
-  <section class="hero">
-    <div class="shell hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow"><span></span> Engineering notes from the field</div>
-        <h1>Where code meets <em>architecture</em> and ideas become products.</h1>
-        <p class="hero-lead">Practical writing on .NET, Azure, enterprise AI, software architecture, career growth, and the journey of building useful technology.</p>
-        <div class="hero-actions">
-          <a class="button primary" href={`${base}articles/`}>Read latest articles <span>→</span></a>
-          <a class="button secondary" href={`${base}projects/`}>Explore projects</a>
+  <section class="personal-hero">
+    <div class="shell personal-hero-grid">
+      <div class="hero-introduction">
+        <p class="hello"><span>Hi, I’m</span> Suryakant.</p>
+        <h1>I build software, study architecture, and share the lessons that survive <em>production.</em></h1>
+        <p class="hero-summary">I’m a .NET full-stack engineer and technical lead with 10+ years of experience, now going deeper into Azure AI and solution architecture while building useful products in public.</p>
+        <div class="hero-cta">
+          <a class="button button-primary" href={featured ? `${base}articles/${featured.id}/` : `${base}articles/`}>Read my latest note <span>→</span></a>
+          <a class="text-button dark-link" href={`${base}projects/`}>See what I’m building ↗</a>
         </div>
-        <div class="proof-row">
-          <div><strong>10+</strong><span>Years building software</span></div>
-          <div><strong>.NET + AI</strong><span>Architecture focus</span></div>
-          <div><strong>Build in public</strong><span>Real lessons, not theory</span></div>
+        <div class="identity-points" aria-label="Professional focus">
+          <span><b>10+</b> years in software</span>
+          <span><b>.NET</b> engineering</span>
+          <span><b>Azure AI</b> architecture</span>
         </div>
       </div>
-      <aside class="hero-panel" aria-label="Current focus">
-        <div class="panel-top"><span class="status-dot"></span> CURRENTLY BUILDING</div>
-        <div class="terminal-line"><span>project/</span> JanMitra AI</div>
-        <p>A production-minded AI platform for accessible citizen services.</p>
-        <ul>
-          <li><span>01</span> Azure AI Foundry</li>
-          <li><span>02</span> ASP.NET Core</li>
-          <li><span>03</span> AI Search + Agents</li>
-          <li><span>04</span> Clean Architecture</li>
-        </ul>
-        <a href={`${base}projects/`}>Follow the build journal <span>↗</span></a>
-      </aside>
-      <div class="hero-orbit" aria-hidden="true"><span>.NET</span><span>AI</span><span>AZURE</span><span>ARCH</span><i></i></div>
+      <div class="portrait-stage">
+        <div class="portrait-shape"></div>
+        <img src="https://avatars.githubusercontent.com/u/11807962?v=4" alt="Suryakant" width="460" height="460" />
+        <div class="portrait-note note-top"><small>CURRENT FOCUS</small><strong>AI-103 + JanMitra AI</strong></div>
+        <div class="portrait-note note-bottom"><span class="live-dot"></span><strong>Learning and building in public</strong></div>
+        <span class="portrait-code" aria-hidden="true">{ }</span>
+      </div>
     </div>
   </section>
 
-  <section class="signal-strip">
-    <div class="shell signal-inner">
-      <span>FIELD NOTES</span><i></i><span>SYSTEM DESIGN</span><i></i><span>AI ARCHITECTURE</span><i></i><span>CAREER CLARITY</span>
-    </div>
+  <section class="verb-band" aria-label="What Suryakant does">
+    <div class="shell"><span>I code.</span><i></i><span>I architect.</span><i></i><span>I learn.</span><i></i><span>I explain.</span><i></i><span>I build.</span></div>
   </section>
 
-  <section class="section shell">
-    <div class="section-heading">
-      <div><span class="kicker">Explore the codex</span><h2>Four paths. One evolving craft.</h2></div>
-      <p>A focused knowledge base built from daily learning, production experience, and honest technical decisions.</p>
-    </div>
-    <div class="focus-grid">
-      {focusAreas.map((item) => (
-        <article class={`focus-card ${item.tone}`}>
-          <span>{item.number}</span>
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
-          <a href={`${base}articles/`}>Explore topic <b>↗</b></a>
+  <section class="section writing-section shell">
+    <header class="editorial-heading">
+      <div><span class="section-label">Latest writing</span><h2>Notes for engineers who care about the <em>why.</em></h2></div>
+      <a href={`${base}articles/`} class="text-button dark-link">All articles →</a>
+    </header>
+    {featured && (
+      <div class="writing-layout">
+        <article class="featured-story">
+          <div class="story-art" aria-hidden="true"><span>FIELD NOTE / 001</span><strong>SQL</strong><div></div></div>
+          <div class="story-copy">
+            <div class="article-meta"><span>{featured.data.category}</span><time>{featured.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time><span>{featured.data.readingTime ?? getReadingTime(featured.body ?? "")}</span></div>
+            <h3><a href={`${base}articles/${featured.id}/`}>{featured.data.title}</a></h3>
+            <p>{featured.data.description}</p>
+            <a href={`${base}articles/${featured.id}/`} class="story-link">Read the field note <span>→</span></a>
+          </div>
         </article>
-      ))}
-    </div>
+        <aside class="recent-notes">
+          <div class="recent-heading"><span>Recent notes</span><small>{String(articles.length).padStart(2, "0")} published</small></div>
+          {recent.length ? recent.map((article) => (
+            <a href={`${base}articles/${article.id}/`}><small>{article.data.category}</small><strong>{article.data.title}</strong><span>{article.data.readingTime ?? getReadingTime(article.body ?? "")} →</span></a>
+          )) : <div class="next-note"><small>THE NEXT NOTE</small><strong>More practical writing is being prepared.</strong><p>Follow the RSS feed to receive the next article automatically.</p><a href={`${base}rss.xml`}>Follow via RSS ↗</a></div>}
+        </aside>
+      </div>
+    )}
   </section>
 
-  <section class="section latest-section">
+  <section class="practice-section">
     <div class="shell">
-      <div class="section-heading compact">
-        <div><span class="kicker">Latest writing</span><h2>Fresh from the workbench.</h2></div>
-        <a class="text-link" href={`${base}articles/`}>View all articles →</a>
-      </div>
-      <div class="article-grid">
-        {articles.map((article, index) => (
-          <article class={index === 0 ? "article-card featured" : "article-card"}>
-            <div class="article-visual"><span>{article.data.category}</span><strong>{index === 0 ? "SQL" : "S/"}</strong></div>
-            <div class="article-body">
-              <div class="article-meta"><span>{article.data.category}</span><time>{article.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time><span>{article.data.readingTime ?? getReadingTime(article.body ?? "")}</span></div>
-              <h3><a href={`${base}articles/${article.id}/`}>{article.data.title}</a></h3>
-              <p>{article.data.description}</p>
-              <a class="read-link" href={`${base}articles/${article.id}/`}>Read article <span>→</span></a>
-            </div>
-          </article>
-        ))}
+      <header class="editorial-heading light-heading">
+        <div><span class="section-label">What I explore</span><h2>One career. Four connected practices.</h2></div>
+        <p>I write where engineering depth, architecture judgment, career growth, and entrepreneurship meet.</p>
+      </header>
+      <div class="practice-list">
+        {practices.map((practice, index) => <article><span>0{index + 1}</span><div><h3>{practice.title}</h3><p>{practice.text}</p></div><a href={`${base}articles/`} aria-label={`Explore ${practice.title}`}>↗</a></article>)}
       </div>
     </div>
   </section>
 
-  <section class="section field-lab">
-    <div class="shell lab-grid">
-      <div class="lab-intro">
-        <span class="kicker">The architecture field lab</span>
-        <h2>Learning becomes valuable when it changes what we build.</h2>
-        <p>This publication connects four practices: understanding the platform, reasoning about trade-offs, implementing the system, and explaining the decision clearly.</p>
-        <a class="text-link" href={`${base}projects/`}>Enter the project lab →</a>
+  <section class="section project-spotlight shell">
+    <div class="project-copy">
+      <span class="section-label">Currently building</span>
+      <div class="status-line"><span class="live-dot"></span> FLAGSHIP PROJECT · IN PROGRESS</div>
+      <h2>JanMitra AI</h2>
+      <p>An enterprise AI platform exploring how Azure AI, .NET, search, document intelligence, and agents can make citizen services easier to understand and access.</p>
+      <ul><li>Clean Architecture</li><li>Security first</li><li>Cost aware</li><li>Portfolio in public</li></ul>
+      <a class="button button-dark" href={`${base}projects/`}>Explore the project <span>→</span></a>
+    </div>
+    <div class="architecture-window" aria-label="JanMitra AI architecture preview">
+      <div class="window-bar"><span></span><span></span><span></span><small>janmitra-ai / architecture</small></div>
+      <div class="architecture-flow">
+        <div class="flow-node user-node"><small>EXPERIENCE</small><strong>Web · Voice</strong></div>
+        <i>→</i><div class="flow-node api-node"><small>PLATFORM</small><strong>ASP.NET Core</strong></div>
+        <i>→</i><div class="flow-node ai-node"><small>INTELLIGENCE</small><strong>Azure AI</strong></div>
       </div>
-      <div class="system-map" aria-label="Surya Tech Codex expertise map">
-        <div class="map-core"><small>THE CORE</small><strong>Useful<br/>systems</strong></div>
-        <div class="map-node node-one"><span>01</span><strong>.NET</strong><small>Reliable foundations</small></div>
-        <div class="map-node node-two"><span>02</span><strong>Azure</strong><small>Cloud architecture</small></div>
-        <div class="map-node node-three"><span>03</span><strong>AI</strong><small>Intelligent experiences</small></div>
-        <div class="map-node node-four"><span>04</span><strong>Career</strong><small>Leadership growth</small></div>
-      </div>
+      <div class="architecture-caption"><span>DECISION LOG</span><p>Why this design? What are the trade-offs? How will it scale responsibly?</p></div>
     </div>
   </section>
 
-  <section class="section journey-section">
-    <div class="shell">
-      <div class="section-heading"><div><span class="kicker">Now, next, later</span><h2>A career built in public.</h2></div><p>The site evolves with real milestones—not a finished-person narrative.</p></div>
-      <div class="journey-line">
-        <article><span>NOW</span><h3>AI-103 + architecture depth</h3><p>Turning official learning into practical .NET and Azure AI implementations.</p></article>
-        <article><span>BUILDING</span><h3>JanMitra AI</h3><p>A flagship product for enterprise architecture, responsible AI, and citizen services.</p></article>
-        <article><span>SHARING</span><h3>Field-tested notes</h3><p>Clear explanations on databases, performance, cloud, AI, and engineering leadership.</p></article>
-        <article><span>GOAL</span><h3>Architect to entrepreneur</h3><p>Building useful products, serving clients, and leading technology with responsibility.</p></article>
-      </div>
+  <section class="career-note">
+    <div class="shell career-note-grid">
+      <div><span class="section-label">The journey</span><blockquote>“Becoming an architect is not a title change. It is learning to see the whole system.”</blockquote></div>
+      <div><p>I’m documenting the transition from experienced full-stack engineer to AI-focused solution architect—the learning, interviews, architecture decisions, and product work behind it.</p><a href={`${base}career/`} class="text-button">Follow the architect journey →</a></div>
     </div>
   </section>
 
-  <section class="shell home-author">
-    <div class="author-portrait">
-      <img src="https://avatars.githubusercontent.com/u/11807962?v=4" alt="Suryakant, author of Surya Tech Codex" width="280" height="280" />
-      <span>BHUBANESWAR · INDIA</span>
-    </div>
-    <div><span class="kicker">Behind the codex</span><h2>Engineering experience, documented honestly.</h2><p>I’m Suryakant, a .NET full-stack engineer and technical lead with more than a decade of experience. I’m building deeper capability in Azure AI and solution architecture while sharing the useful parts of that journey.</p><div class="hero-actions"><a class="button dark" href={`${base}about/`}>Read my story →</a><a class="button outline-dark" href="https://github.com/surya99">Explore GitHub ↗</a></div></div>
-  </section>
-
-  <div class="shell home-subscribe"><Subscribe /></div>
-
-  <section class="shell manifesto">
-    <span class="kicker">The principle</span>
-    <blockquote>“Learn deeply. Explain simply. Build responsibly.”</blockquote>
-    <p>Surya Tech Codex is my public engineering notebook—where practical experience meets continuous learning.</p>
-  </section>
+  <section class="shell home-subscribe"><Subscribe /></section>
 </BaseLayout>
