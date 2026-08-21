@@ -25,16 +25,16 @@ const activeSection = Astro.url.pathname.slice(base.length).split("/")[0];
       <span></span><span></span>
     </button>
   </div>
-  <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
-    <div class="shell">
-      {links.map(({ label, href, section }) => (
-        <a href={href} class:list={{ active: activeSection === section }} aria-current={activeSection === section ? "page" : undefined}>{label}<span>→</span></a>
-      ))}
-      <a href={`${base}community/`}>Community <span>→</span></a>
-      <a href={`${base}thoughts/`}>Thoughts <span>→</span></a>
-    </div>
-  </nav>
 </header>
+<nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
+  <div class="shell">
+    {links.map(({ label, href, section }) => (
+      <a href={href} class:list={{ active: activeSection === section }} aria-current={activeSection === section ? "page" : undefined}>{label}<span aria-hidden="true">→</span></a>
+    ))}
+    <a href={`${base}community/`}>Community <span aria-hidden="true">→</span></a>
+    <a href={`${base}thoughts/`}>Thoughts <span aria-hidden="true">→</span></a>
+  </div>
+</nav>
 
 <script>
   const setupMenu = () => {
@@ -48,6 +48,21 @@ const activeSection = Astro.url.pathname.slice(base.length).split("/")[0];
       toggle.setAttribute("aria-label", open ? "Open navigation" : "Close navigation");
       menu.hidden = open;
       document.body.classList.toggle("menu-open", !open);
+    });
+    menu.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element) || !event.target.closest("a")) return;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
+      menu.hidden = true;
+      document.body.classList.remove("menu-open");
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || menu.hidden) return;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
+      menu.hidden = true;
+      document.body.classList.remove("menu-open");
+      toggle.focus();
     });
   };
   setupMenu();
