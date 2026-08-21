@@ -33,4 +33,6 @@ Pushing the file to `main` triggers the GitHub Pages workflow. Astro automatical
 
 ## Future automation
 
-The final assistant workflow will accept article details in conversation, create the Markdown entry, run validation, commit it to GitHub, and verify the automatic deployment.
+The assistant workflow accepts article details in conversation, creates the Markdown entry, runs validation, commits it to GitHub, and verifies the automatic deployment. Repository-wide instructions are defined in `AGENTS.md`, and `npm run build` enforces the content quality gate before Astro builds the site.
+
+No paid AI API is required inside GitHub. Provide the raw notes to the connected publishing assistant; GitHub Actions remains responsible only for deterministic validation and deployment.
