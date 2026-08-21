@@ -5,7 +5,7 @@ export const siteConfig = {
   author: "Suryakant",
   github: "https://github.com/surya99",
   portfolio: "https://suryakant-portfolio.vercel.app/",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/suryarock/",
   giscus: {
     repo: "surya99/surya-tech-codex",
     repoId: "",
