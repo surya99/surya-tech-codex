@@ -90,3 +90,5 @@
 @keyframes create-pulse{50%{transform:scale(1.12);box-shadow:0 0 0 6px rgba(26,169,129,.08)}}
 @media(max-width:560px){.verb-set{gap:12px}.verb-set span{min-width:160px;padding-inline:16px}.action-icon{width:28px;height:28px}}
 @media(prefers-reduced-motion:reduce){.action-icon{animation:none}.verb-set:first-child span:nth-of-type(even){display:flex}}
+
+.footer-bottom a{color:#a8c9ff;font-weight:600;transition:color .2s}.footer-bottom a:hover{color:#fff}
