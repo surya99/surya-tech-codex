@@ -63,3 +63,18 @@
 @keyframes cursor-blink{0%,48%{opacity:1}49%,100%{opacity:0}}
 @media(max-width:560px){.brand-monogram{width:48px;font-size:15px}.terminal-identity{font-size:9px;padding-inline:10px}.terminal-cycle{width:174px}}
 @media(prefers-reduced-motion:reduce){.terminal-cycle>span,.terminal-identity>i{animation:none}.terminal-cycle>span:first-child{opacity:1;transform:none}}
+
+/* Continuous developer-workflow marquee */
+.verb-band{position:relative;overflow:hidden;background:linear-gradient(90deg,#0d2138,#102b49 48%,#0d2138);border-block:1px solid rgba(100,230,244,.13)}
+.verb-band:before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(8,102,255,.18) 50%,transparent 65%);transform:translateX(-100%);animation:band-scan 8s ease-in-out infinite;pointer-events:none}
+.verb-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.verb-track{display:flex;width:max-content;will-change:transform;animation:verb-scroll 28s linear infinite}
+.verb-marquee:hover .verb-track{animation-play-state:paused}
+.verb-set{display:flex;align-items:center;flex-shrink:0;height:72px}
+.verb-set span{display:flex;align-items:center;gap:12px;min-width:220px;padding-inline:30px;color:#fff;font:600 17px "Source Serif 4",serif;font-style:italic;white-space:nowrap}
+.verb-set span b{color:#64e6f4;font:500 9px "DM Mono",monospace;letter-spacing:.08em;font-style:normal}
+.verb-set i{display:grid;place-items:center;width:32px;height:20px;border-radius:999px;background:rgba(8,102,255,.16);color:#64e6f4;font:500 11px "DM Mono",monospace;font-style:normal}
+@keyframes verb-scroll{to{transform:translateX(-50%)}}
+@keyframes band-scan{0%,20%{transform:translateX(-100%)}70%,100%{transform:translateX(100%)}}
+@media(max-width:560px){.verb-set{height:62px}.verb-set span{min-width:175px;padding-inline:20px;font-size:15px}.verb-track{animation-duration:22s}}
+@media(prefers-reduced-motion:reduce){.verb-track,.verb-band:before{animation:none}.verb-track{width:100%}.verb-set:first-child{width:100%;justify-content:space-around}.verb-set:first-child span{min-width:auto;padding:12px}.verb-set:first-child span:nth-of-type(even),.verb-set:first-child i,.verb-set[aria-hidden="true"]{display:none}}
