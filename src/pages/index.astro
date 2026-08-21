@@ -16,8 +16,8 @@ const recent = articles.slice(1, 5);
     <div class="shell personal-hero-grid">
       <div class="hero-introduction reveal">
         <p class="hello"><span>Hi, I’m</span> Suryakant.</p>
-        <h1>I build software, study architecture, and share the lessons that survive <em>production.</em></h1>
-        <p class="hero-summary">I’m a .NET full-stack engineer and technical lead with 10+ years of experience, now going deeper into Azure AI and solution architecture while building useful products in public.</p>
+        <h1>I learn deeply, build practical software, and help others grow through <em>knowledge.</em></h1>
+        <p class="hero-summary">I’m a .NET full-stack engineer and technical lead with 10+ years of experience. I share practical lessons through articles, community work, and training on .NET and Azure technologies.</p>
         <div class="terminal-identity" aria-label="Architecting with .NET, building with AI, and sharing practical knowledge">
           <span class="terminal-prompt" aria-hidden="true">~/surya $</span>
           <span class="terminal-cycle" aria-hidden="true">
@@ -29,12 +29,12 @@ const recent = articles.slice(1, 5);
         </div>
         <div class="hero-cta">
           <a class="button button-primary" href={featured ? `${base}articles/${featured.id}/` : `${base}articles/`}>Read my latest note <span>→</span></a>
-          <a class="text-button dark-link" href={`${base}projects/`}>See what I’m building ↗</a>
+          <a class="text-button dark-link" href={`${base}training/`}>Explore training ↗</a>
         </div>
         <div class="identity-points" aria-label="Professional focus">
           <span><b>10+</b> years in software</span>
           <span><b>.NET</b> engineering</span>
-          <span><b>Azure AI</b> architecture</span>
+          <span><b>Training</b> .NET and Azure</span>
         </div>
       </div>
       <div class="portrait-stage reveal reveal-delay">
@@ -57,18 +57,16 @@ const recent = articles.slice(1, 5);
     <div class="verb-marquee">
       <div class="verb-track">
         <div class="verb-set">
-          <span><b class="action-icon icon-code" aria-hidden="true">&lt;/&gt;</b>Code</span>
-          <span><b class="action-icon icon-architect" aria-hidden="true">◇</b>Architect</span>
           <span><b class="action-icon icon-learn" aria-hidden="true">◫</b>Learn</span>
           <span><b class="action-icon icon-share" aria-hidden="true">↗</b>Share</span>
-          <span><b class="action-icon icon-create" aria-hidden="true">▶</b>Create</span>
+          <span><b class="action-icon icon-write" aria-hidden="true">✎</b>Write</span>
+          <span><b class="action-icon icon-train" aria-hidden="true">◎</b>Train</span>
         </div>
         <div class="verb-set" aria-hidden="true">
-          <span><b class="action-icon icon-code">&lt;/&gt;</b>Code</span>
-          <span><b class="action-icon icon-architect">◇</b>Architect</span>
           <span><b class="action-icon icon-learn">◫</b>Learn</span>
           <span><b class="action-icon icon-share">↗</b>Share</span>
-          <span><b class="action-icon icon-create">▶</b>Create</span>
+          <span><b class="action-icon icon-write">✎</b>Write</span>
+          <span><b class="action-icon icon-train">◎</b>Train</span>
         </div>
       </div>
     </div>
@@ -98,6 +96,22 @@ const recent = articles.slice(1, 5);
         </aside>
       </div>
     )}
+  </section>
+
+  <section class="section training-preview shell reveal">
+    <div class="training-preview-copy">
+      <span class="section-label">Professional training</span>
+      <h2>Practical .NET and Azure training shaped by real engineering work.</h2>
+      <p>I help developers and teams strengthen fundamentals, understand production patterns, and connect individual technologies to the wider system.</p>
+      <div class="training-topics"><span>C# &amp; .NET</span><span>ASP.NET Core</span><span>Azure</span><span>Architecture foundations</span></div>
+      <div class="training-actions"><a class="button button-primary" href={`${base}training/`}>Explore training <span>→</span></a><a class="text-button dark-link" href="mailto:suryatechcodex@gmail.com?subject=Training%20enquiry%20-%20Surya%20Tech%20Codex">Discuss a training need ↗</a></div>
+    </div>
+    <div class="learning-loop" aria-label="Learn, share, write, and train">
+      <span>01 <strong>Learn</strong><small>Keep knowledge current</small></span>
+      <span>02 <strong>Share</strong><small>Help the community</small></span>
+      <span>03 <strong>Write</strong><small>Make learning reusable</small></span>
+      <span>04 <strong>Train</strong><small>Help others apply it</small></span>
+    </div>
   </section>
 
   <section class="section project-spotlight shell reveal">

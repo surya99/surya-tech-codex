@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const emailLink = "mailto:suryatechcodex@gmail.com?subject=Training%20enquiry%20-%20Surya%20Tech%20Codex&body=Hello%20Suryakant%2C%0A%0AI%20am%20interested%20in%20training%20on%3A%0A%0AAudience%20or%20team%20size%3A%0A%0APreferred%20timeline%3A%0A%0AThank%20you.";
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: ".NET and Azure Technology Training",
+  description: "Practical training on C#, .NET, ASP.NET Core, Azure, and software architecture foundations.",
+  provider: {
+    "@type": "Person",
+    name: "Suryakant",
+    url: "https://suryatechcodex.com/about/"
+  },
+  url: "https://suryatechcodex.com/training/",
+  serviceType: "Technology training"
+};
+---
+<BaseLayout title=".NET and Azure Training" description="Practical .NET, C#, ASP.NET Core, Azure, and architecture training from an engineer with 10+ years of experience.">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <section class="training-hero">
+    <div class="shell training-hero-grid">
+      <div>
+        <span class="kicker">Technology training</span>
+        <h1>Learn .NET and Azure through practical engineering context.</h1>
+        <p>Structured technical training that connects concepts, code, architecture decisions, and production considerations—delivered by a working engineer with 10+ years of experience.</p>
+        <div class="training-actions"><a class="button button-primary" href={emailLink}>Discuss your training need <span>→</span></a><a class="text-button dark-link" href="mailto:suryatechcodex@gmail.com">suryatechcodex@gmail.com</a></div>
+      </div>
+      <aside class="trainer-card">
+        <span>TRAINER PROFILE</span>
+        <strong>Suryakant</strong>
+        <p>.NET Full-Stack Engineer · Technical Lead · Azure &amp; AI Architecture Learner</p>
+        <ul><li>10+ years of engineering experience</li><li>Production-focused explanations</li><li>Concepts connected to real systems</li><li>Clear, practical learning path</li></ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section shell training-offerings">
+    <header class="editorial-heading"><div><span class="section-label">Core areas</span><h2>Training built around understanding, not memorization.</h2></div></header>
+    <div class="training-card-grid">
+      <article><span>01</span><h2>C# and .NET</h2><p>Language fundamentals, object-oriented design, clean code, asynchronous programming, performance, testing, and maintainable application development.</p></article>
+      <article><span>02</span><h2>ASP.NET Core</h2><p>Web APIs, dependency injection, authentication and authorization, data access, error handling, logging, caching, and production-ready patterns.</p></article>
+      <article><span>03</span><h2>Microsoft Azure</h2><p>Cloud fundamentals and practical use of App Service, Functions, Storage, Service Bus, identity, monitoring, deployment, and cost-aware design.</p></article>
+      <article><span>04</span><h2>Architecture foundations</h2><p>Clean Architecture, SOLID, scalability, security, maintainability, integration patterns, trade-offs, and scenario-based design thinking.</p></article>
+    </div>
+  </section>
+
+  <section class="training-audience">
+    <div class="shell training-audience-grid">
+      <div><span class="section-label">Who it can help</span><h2>A learning path adapted to the people in the room.</h2></div>
+      <div class="audience-list"><span>Developers strengthening .NET fundamentals</span><span>Teams adopting ASP.NET Core or Azure</span><span>Professionals preparing for greater technical responsibility</span><span>Learners who want practical guidance beyond tutorials</span></div>
+    </div>
+  </section>
+
+  <section class="shell training-contact">
+    <span class="kicker">Start a conversation</span>
+    <h2>Tell me the topic, audience, and outcome you need.</h2>
+    <p>Training scope and format can be discussed based on your goals. Send an enquiry and include the technology, current experience level, approximate audience size, and preferred timeline.</p>
+    <a class="button button-primary" href={emailLink}>Email a training enquiry <span>→</span></a>
+  </section>
+</BaseLayout>
