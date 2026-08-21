@@ -13,6 +13,6 @@ export const siteConfig = {
     categoryId: "DIC_kwDOT_W6w84DD3L_",
   },
   analytics: {
-    gaMeasurementId: "",
+    gaMeasurementId: "G-QTKE5F997P",
   },
 };
