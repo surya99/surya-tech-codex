@@ -18,6 +18,15 @@ const recent = articles.slice(1, 5);
         <p class="hello"><span>Hi, I’m</span> Suryakant.</p>
         <h1>I build software, study architecture, and share the lessons that survive <em>production.</em></h1>
         <p class="hero-summary">I’m a .NET full-stack engineer and technical lead with 10+ years of experience, now going deeper into Azure AI and solution architecture while building useful products in public.</p>
+        <div class="terminal-identity" aria-label="Architecting with .NET, building with AI, and sharing practical knowledge">
+          <span class="terminal-prompt" aria-hidden="true">~/surya $</span>
+          <span class="terminal-cycle" aria-hidden="true">
+            <span>architecting_with_dotnet</span>
+            <span>building_with_ai</span>
+            <span>sharing_practical_knowledge</span>
+          </span>
+          <i aria-hidden="true"></i>
+        </div>
         <div class="hero-cta">
           <a class="button button-primary" href={featured ? `${base}articles/${featured.id}/` : `${base}articles/`}>Read my latest note <span>→</span></a>
           <a class="text-button dark-link" href={`${base}projects/`}>See what I’m building ↗</a>

@@ -50,3 +50,16 @@
 @keyframes arrow-travel{0%,100%{opacity:.35;transform:translateX(-3px)}50%{opacity:1;transform:translateX(3px)}}
 @media(max-width:560px){.tech-orbit{width:350px;height:350px}.orbit-node{width:40px;height:40px}.node-dotnet{left:2px;top:90px}.node-ai{right:5px;top:55px}.node-azure{right:25px;bottom:35px}.brand-copy small{max-width:155px;white-space:nowrap}}
 @media(prefers-reduced-motion:reduce){.tech-orbit,.orbit-node,.live-dot,.animated-flow .flow-node,.animated-flow>i{animation:none}.reveal{opacity:1;transform:none}}
+
+/* Stable code mark + rotating terminal identity */
+.brand-monogram{width:54px;font-size:17px;letter-spacing:-.08em}
+.terminal-identity{display:inline-flex;align-items:center;max-width:100%;height:42px;margin-top:20px;padding:0 14px;border:1px solid #d4dfeb;border-radius:8px;background:rgba(255,255,255,.78);box-shadow:0 8px 28px rgba(16,35,59,.07);font:500 11px "DM Mono",monospace;color:#31485f;overflow:hidden}
+.terminal-prompt{color:var(--blue);margin-right:9px;white-space:nowrap}
+.terminal-cycle{position:relative;display:block;width:205px;height:18px;overflow:hidden}
+.terminal-cycle>span{position:absolute;inset:0;opacity:0;transform:translateY(12px);animation:terminal-message 9s ease-in-out infinite;white-space:nowrap}
+.terminal-cycle>span:nth-child(2){animation-delay:3s}.terminal-cycle>span:nth-child(3){animation-delay:6s}
+.terminal-identity>i{width:7px;height:15px;margin-left:3px;background:var(--blue);animation:cursor-blink 1s steps(1) infinite}
+@keyframes terminal-message{0%{opacity:0;transform:translateY(12px)}8%,28%{opacity:1;transform:translateY(0)}33%,100%{opacity:0;transform:translateY(-12px)}}
+@keyframes cursor-blink{0%,48%{opacity:1}49%,100%{opacity:0}}
+@media(max-width:560px){.brand-monogram{width:48px;font-size:15px}.terminal-identity{font-size:9px;padding-inline:10px}.terminal-cycle{width:174px}}
+@media(prefers-reduced-motion:reduce){.terminal-cycle>span,.terminal-identity>i{animation:none}.terminal-cycle>span:first-child{opacity:1;transform:none}}
