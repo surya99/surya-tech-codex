@@ -8,7 +8,7 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/suryarock/",
   giscus: {
     repo: "surya99/surya-tech-codex",
-    repoId: "",
+    repoId: "R_kgDOT_W6ww",
     category: "Announcements",
     categoryId: "",
   },
