@@ -2,8 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://surya99.github.io",
-  base: "/surya-tech-codex/",
+  site: "https://suryatechcodex.com",
   integrations: [sitemap()],
   markdown: {
     shikiConfig: { theme: "github-dark" }

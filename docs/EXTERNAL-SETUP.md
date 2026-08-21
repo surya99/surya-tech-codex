@@ -4,7 +4,7 @@
 
 Open the repository homepage, click the gear icon beside **About**, and set the website to:
 
-`https://surya99.github.io/surya-tech-codex/`
+`https://suryatechcodex.com/`
 
 ## Giscus comments and reactions
 

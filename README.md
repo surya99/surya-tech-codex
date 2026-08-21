@@ -2,7 +2,7 @@
 
 A modern technical publication for practical writing on .NET, Azure, AI architecture, software engineering careers, and entrepreneurship.
 
-**Live site:** https://surya99.github.io/surya-tech-codex/
+**Live site:** https://suryatechcodex.com/
 
 ## Stack
 

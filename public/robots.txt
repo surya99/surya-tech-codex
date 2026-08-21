@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://surya99.github.io/surya-tech-codex/sitemap-index.xml
+Sitemap: https://suryatechcodex.com/sitemap-index.xml
