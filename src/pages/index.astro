@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import Subscribe from "../components/Subscribe.astro";
+import { getReadingTime } from "../utils/readingTime";
 
 const base = import.meta.env.BASE_URL;
 const articles = (await getCollection("articles", ({ data }) => !data.draft))
@@ -43,6 +45,7 @@ const focusAreas = [
         </ul>
         <a href={`${base}projects/`}>Follow the build journal <span>↗</span></a>
       </aside>
+      <div class="hero-orbit" aria-hidden="true"><span>.NET</span><span>AI</span><span>AZURE</span><span>ARCH</span><i></i></div>
     </div>
   </section>
 
@@ -80,7 +83,7 @@ const focusAreas = [
           <article class={index === 0 ? "article-card featured" : "article-card"}>
             <div class="article-visual"><span>{article.data.category}</span><strong>{index === 0 ? "SQL" : "S/"}</strong></div>
             <div class="article-body">
-              <div class="article-meta"><span>{article.data.category}</span><time>{article.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time></div>
+              <div class="article-meta"><span>{article.data.category}</span><time>{article.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time><span>{article.data.readingTime ?? getReadingTime(article.body ?? "")}</span></div>
               <h3><a href={`${base}articles/${article.id}/`}>{article.data.title}</a></h3>
               <p>{article.data.description}</p>
               <a class="read-link" href={`${base}articles/${article.id}/`}>Read article <span>→</span></a>
@@ -90,6 +93,46 @@ const focusAreas = [
       </div>
     </div>
   </section>
+
+  <section class="section field-lab">
+    <div class="shell lab-grid">
+      <div class="lab-intro">
+        <span class="kicker">The architecture field lab</span>
+        <h2>Learning becomes valuable when it changes what we build.</h2>
+        <p>This publication connects four practices: understanding the platform, reasoning about trade-offs, implementing the system, and explaining the decision clearly.</p>
+        <a class="text-link" href={`${base}projects/`}>Enter the project lab →</a>
+      </div>
+      <div class="system-map" aria-label="Surya Tech Codex expertise map">
+        <div class="map-core"><small>THE CORE</small><strong>Useful<br/>systems</strong></div>
+        <div class="map-node node-one"><span>01</span><strong>.NET</strong><small>Reliable foundations</small></div>
+        <div class="map-node node-two"><span>02</span><strong>Azure</strong><small>Cloud architecture</small></div>
+        <div class="map-node node-three"><span>03</span><strong>AI</strong><small>Intelligent experiences</small></div>
+        <div class="map-node node-four"><span>04</span><strong>Career</strong><small>Leadership growth</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section journey-section">
+    <div class="shell">
+      <div class="section-heading"><div><span class="kicker">Now, next, later</span><h2>A career built in public.</h2></div><p>The site evolves with real milestones—not a finished-person narrative.</p></div>
+      <div class="journey-line">
+        <article><span>NOW</span><h3>AI-103 + architecture depth</h3><p>Turning official learning into practical .NET and Azure AI implementations.</p></article>
+        <article><span>BUILDING</span><h3>JanMitra AI</h3><p>A flagship product for enterprise architecture, responsible AI, and citizen services.</p></article>
+        <article><span>SHARING</span><h3>Field-tested notes</h3><p>Clear explanations on databases, performance, cloud, AI, and engineering leadership.</p></article>
+        <article><span>GOAL</span><h3>Architect to entrepreneur</h3><p>Building useful products, serving clients, and leading technology with responsibility.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell home-author">
+    <div class="author-portrait">
+      <img src="https://avatars.githubusercontent.com/u/11807962?v=4" alt="Suryakant, author of Surya Tech Codex" width="280" height="280" />
+      <span>BHUBANESWAR · INDIA</span>
+    </div>
+    <div><span class="kicker">Behind the codex</span><h2>Engineering experience, documented honestly.</h2><p>I’m Suryakant, a .NET full-stack engineer and technical lead with more than a decade of experience. I’m building deeper capability in Azure AI and solution architecture while sharing the useful parts of that journey.</p><div class="hero-actions"><a class="button dark" href={`${base}about/`}>Read my story →</a><a class="button outline-dark" href="https://github.com/surya99">Explore GitHub ↗</a></div></div>
+  </section>
+
+  <div class="shell home-subscribe"><Subscribe /></div>
 
   <section class="shell manifesto">
     <span class="kicker">The principle</span>

@@ -2,6 +2,8 @@
 
 A modern technical publication for practical writing on .NET, Azure, AI architecture, software engineering careers, and entrepreneurship.
 
+**Live site:** https://surya99.github.io/surya-tech-codex/
+
 ## Stack
 
 - Astro
@@ -9,6 +11,8 @@ A modern technical publication for practical writing on .NET, Azure, AI architec
 - GitHub Pages
 - GitHub Actions
 - SEO sitemap and social metadata
+- RSS, article search, reading progress, sharing, and structured data
+- Giscus-ready discussions and reactions
 
 ## Local development
 
@@ -23,4 +27,6 @@ Add a Markdown file to `src/content/articles/` using the frontmatter structure i
 
 ## Current milestone
 
-Foundation: navigation, responsive design system, article content model, SEO metadata, sitemap, and Pages deployment workflow.
+Professional publication: responsive navigation, editorial homepage, article reading experience, social sharing, RSS, search, SEO, and automated Pages deployment.
+
+See [the publishing workflow](docs/PUBLISHING.md) and [external setup checklist](docs/EXTERNAL-SETUP.md).

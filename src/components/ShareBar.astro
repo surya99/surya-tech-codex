@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  url: URL;
+}
+
+const { title, url } = Astro.props;
+const encodedUrl = encodeURIComponent(url.toString());
+const encodedTitle = encodeURIComponent(title);
+const shares = [
+  { label: "LinkedIn", short: "in", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  { label: "Facebook", short: "f", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+  { label: "WhatsApp", short: "wa", href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}` },
+  { label: "Email", short: "@", href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}` },
+];
+---
+<aside class="share-bar" aria-label="Share this article">
+  <span>Share</span>
+  <div class="share-actions">
+    {shares.map((share) => (
+      <a href={share.href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${share.label}`} title={share.label}>{share.short}</a>
+    ))}
+    <button class="native-share" type="button" aria-label="Share using another app" title="More share options">↗</button>
+    <button class="copy-link" type="button" aria-label="Copy article link" title="Copy link">⌁</button>
+  </div>
+  <small class="copy-status" aria-live="polite"></small>
+</aside>
+
+<script is:inline define:vars={{ title, shareUrl: url.toString() }}>
+  const nativeButton = document.querySelector(".native-share");
+  const copyButton = document.querySelector(".copy-link");
+  const status = document.querySelector(".copy-status");
+
+  if (!("share" in navigator)) nativeButton?.classList.add("is-hidden");
+  nativeButton?.addEventListener("click", async () => {
+    try { await navigator.share({ title, url: shareUrl }); } catch (_) {}
+  });
+  copyButton?.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(shareUrl);
+    if (status) status.textContent = "Copied";
+    window.setTimeout(() => { if (status) status.textContent = ""; }, 1800);
+  });
+</script>

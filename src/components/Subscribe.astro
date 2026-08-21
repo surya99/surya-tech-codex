@@ -1,0 +1,14 @@
+---
+const { compact = false } = Astro.props;
+---
+<section class:list={["subscribe-card", { compact }]}>
+  <div>
+    <span class="kicker">Stay in the loop</span>
+    <h2>One useful engineering idea at a time.</h2>
+    <p>Follow new .NET, Azure, AI architecture, career, and product-building notes through RSS today. Email delivery is coming next.</p>
+  </div>
+  <div class="subscribe-actions">
+    <a class="button primary" href={`${import.meta.env.BASE_URL}rss.xml`}>Follow via RSS <span>↗</span></a>
+    <a class="button ink" href="https://github.com/surya99/surya-tech-codex" target="_blank" rel="noopener">Watch on GitHub</a>
+  </div>
+</section>

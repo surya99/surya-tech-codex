@@ -1,0 +1,49 @@
+name: New article request
+description: Supply the source material for a Surya Tech Codex article.
+title: "Article: "
+labels: ["article"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Working title
+      placeholder: Understanding OFFSET in SQL Server
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - .NET & C#
+        - Azure & Cloud
+        - AI Architecture
+        - Software Architecture
+        - SQL Server
+        - Angular & Web
+        - Career & Leadership
+        - Entrepreneurship
+        - Learning Notes
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: Notes or draft
+      description: Paste the raw idea, notes, code, links, or complete draft.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Add official documentation or reference links when applicable.
+  - type: checkboxes
+    id: options
+    attributes:
+      label: Publishing options
+      options:
+        - label: Feature this article on the homepage
+        - label: Include an architecture diagram
+        - label: Prepare a LinkedIn post
+        - label: Publish immediately after review

@@ -1,0 +1,13 @@
+<div class="reading-progress" aria-hidden="true"><span></span></div>
+
+<script>
+  const progress = document.querySelector<HTMLElement>(".reading-progress span");
+  const updateProgress = () => {
+    if (!progress) return;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const value = scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0;
+    progress.style.transform = `scaleX(${value})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+</script>

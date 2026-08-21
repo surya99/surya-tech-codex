@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { getReadingTime } from "../../utils/readingTime";
 const base = import.meta.env.BASE_URL;
 const articles = (await getCollection("articles", ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
@@ -11,14 +12,48 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
     <h1>Articles that move from <em>concept</em> to production.</h1>
     <p>Practical explanations, architecture decisions, code, and lessons learned while building real systems.</p>
   </section>
-  <section class="shell article-list">
+  <section class="shell article-browser">
+    <div class="article-tools">
+      <label><span>Search the codex</span><input id="article-search" type="search" placeholder="Try: SQL, Azure, architecture…" /></label>
+      <div class="category-filters" aria-label="Filter articles">
+        <button class="active" data-category="all">All</button>
+        {[...new Set(articles.map((article) => article.data.category))].map((category) => <button data-category={category.toLowerCase()}>{category}</button>)}
+      </div>
+    </div>
+    <div class="article-list" id="article-list">
     {articles.map((article) => (
-      <article>
+      <article data-category={article.data.category.toLowerCase()} data-search={`${article.data.title} ${article.data.description} ${article.data.tags.join(" ")}`.toLowerCase()}>
         <div class="article-meta"><span>{article.data.category}</span><time>{article.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</time></div>
         <h2><a href={`${base}articles/${article.id}/`}>{article.data.title}</a></h2>
-        <p>{article.data.description}</p>
+        <div><p>{article.data.description}</p><small>{article.data.readingTime ?? getReadingTime(article.body ?? "")}</small></div>
         <div class="tag-row">{article.data.tags.map((tag) => <span>#{tag}</span>)}</div>
       </article>
     ))}
+    </div>
+    <p class="no-results" hidden>No articles match that search yet.</p>
   </section>
+  <script>
+    const input = document.querySelector<HTMLInputElement>("#article-search");
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>("[data-category]")];
+    const items = [...document.querySelectorAll<HTMLElement>("#article-list > article")];
+    const empty = document.querySelector<HTMLElement>(".no-results");
+    let category = "all";
+    const filter = () => {
+      const query = input?.value.trim().toLowerCase() ?? "";
+      let visible = 0;
+      items.forEach((item) => {
+        const matchCategory = category === "all" || item.dataset.category === category;
+        const matchQuery = !query || item.dataset.search?.includes(query);
+        item.hidden = !(matchCategory && matchQuery);
+        if (!item.hidden) visible++;
+      });
+      if (empty) empty.hidden = visible !== 0;
+    };
+    input?.addEventListener("input", filter);
+    buttons.forEach((button) => button.addEventListener("click", () => {
+      category = button.dataset.category ?? "all";
+      buttons.forEach((candidate) => candidate.classList.toggle("active", candidate === button));
+      filter();
+    }));
+  </script>
 </BaseLayout>
