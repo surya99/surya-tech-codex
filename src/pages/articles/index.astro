@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+const base = import.meta.env.BASE_URL;
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+---
+<BaseLayout title="Articles" description="Technical articles on .NET, AI, Azure, SQL Server, web development, and software architecture.">
+  <section class="page-hero shell">
+    <span class="kicker">The knowledge base</span>
+    <h1>Articles that move from <em>concept</em> to production.</h1>
+    <p>Practical explanations, architecture decisions, code, and lessons learned while building real systems.</p>
+  </section>
+  <section class="shell article-list">
+    {articles.map((article) => (
+      <article>
+        <div class="article-meta"><span>{article.data.category}</span><time>{article.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</time></div>
+        <h2><a href={`${base}articles/${article.id}/`}>{article.data.title}</a></h2>
+        <p>{article.data.description}</p>
+        <div class="tag-row">{article.data.tags.map((tag) => <span>#{tag}</span>)}</div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
+---
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <a class="brand footer-brand" href={base}>
+        <span class="brand-mark" aria-hidden="true">S/</span>
+        <span><strong>Surya Tech</strong><small>CODEX</small></span>
+      </a>
+      <p>Code smarter. Architect thoughtfully. Build what matters.</p>
+    </div>
+    <div>
+      <h2>Explore</h2>
+      <a href={`${base}articles/`}>Technical articles</a>
+      <a href={`${base}career/`}>Career guidance</a>
+      <a href={`${base}projects/`}>Projects</a>
+    </div>
+    <div>
+      <h2>Connect</h2>
+      <a href="https://github.com/surya99" rel="me">GitHub</a>
+      <a href="https://suryakant-portfolio.vercel.app/">Portfolio</a>
+      <a href={`${base}about/`}>About Surya</a>
+    </div>
+  </div>
+  <div class="shell footer-bottom">
+    <span>© {year} Surya Tech Codex</span>
+    <span>Built in public with Astro.</span>
+  </div>
+</footer>

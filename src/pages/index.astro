@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const base = import.meta.env.BASE_URL;
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf())
+  .slice(0, 3);
+
+const focusAreas = [
+  { number: "01", title: ".NET & C#", text: "Practical engineering patterns, clean code, performance, and production lessons.", tone: "cyan" },
+  { number: "02", title: "AI & Azure", text: "Enterprise AI systems built with Azure AI Foundry, Search, agents, and .NET.", tone: "violet" },
+  { number: "03", title: "Architecture", text: "Trade-offs, scalability, security, maintainability, and real system decisions.", tone: "orange" },
+  { number: "04", title: "Career & Building", text: "Growing from senior engineer to architect while turning ideas into products.", tone: "green" },
+];
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> Engineering notes from the field</div>
+        <h1>Where code meets <em>architecture</em> and ideas become products.</h1>
+        <p class="hero-lead">Practical writing on .NET, Azure, enterprise AI, software architecture, career growth, and the journey of building useful technology.</p>
+        <div class="hero-actions">
+          <a class="button primary" href={`${base}articles/`}>Read latest articles <span>→</span></a>
+          <a class="button secondary" href={`${base}projects/`}>Explore projects</a>
+        </div>
+        <div class="proof-row">
+          <div><strong>10+</strong><span>Years building software</span></div>
+          <div><strong>.NET + AI</strong><span>Architecture focus</span></div>
+          <div><strong>Build in public</strong><span>Real lessons, not theory</span></div>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Current focus">
+        <div class="panel-top"><span class="status-dot"></span> CURRENTLY BUILDING</div>
+        <div class="terminal-line"><span>project/</span> JanMitra AI</div>
+        <p>A production-minded AI platform for accessible citizen services.</p>
+        <ul>
+          <li><span>01</span> Azure AI Foundry</li>
+          <li><span>02</span> ASP.NET Core</li>
+          <li><span>03</span> AI Search + Agents</li>
+          <li><span>04</span> Clean Architecture</li>
+        </ul>
+        <a href={`${base}projects/`}>Follow the build journal <span>↗</span></a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="signal-strip">
+    <div class="shell signal-inner">
+      <span>FIELD NOTES</span><i></i><span>SYSTEM DESIGN</span><i></i><span>AI ARCHITECTURE</span><i></i><span>CAREER CLARITY</span>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-heading">
+      <div><span class="kicker">Explore the codex</span><h2>Four paths. One evolving craft.</h2></div>
+      <p>A focused knowledge base built from daily learning, production experience, and honest technical decisions.</p>
+    </div>
+    <div class="focus-grid">
+      {focusAreas.map((item) => (
+        <article class={`focus-card ${item.tone}`}>
+          <span>{item.number}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          <a href={`${base}articles/`}>Explore topic <b>↗</b></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section latest-section">
+    <div class="shell">
+      <div class="section-heading compact">
+        <div><span class="kicker">Latest writing</span><h2>Fresh from the workbench.</h2></div>
+        <a class="text-link" href={`${base}articles/`}>View all articles →</a>
+      </div>
+      <div class="article-grid">
+        {articles.map((article, index) => (
+          <article class={index === 0 ? "article-card featured" : "article-card"}>
+            <div class="article-visual"><span>{article.data.category}</span><strong>{index === 0 ? "SQL" : "S/"}</strong></div>
+            <div class="article-body">
+              <div class="article-meta"><span>{article.data.category}</span><time>{article.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time></div>
+              <h3><a href={`${base}articles/${article.id}/`}>{article.data.title}</a></h3>
+              <p>{article.data.description}</p>
+              <a class="read-link" href={`${base}articles/${article.id}/`}>Read article <span>→</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="shell manifesto">
+    <span class="kicker">The principle</span>
+    <blockquote>“Learn deeply. Explain simply. Build responsibly.”</blockquote>
+    <p>Surya Tech Codex is my public engineering notebook—where practical experience meets continuous learning.</p>
+  </section>
+</BaseLayout>
