@@ -10,7 +10,7 @@ export const siteConfig = {
     repo: "surya99/surya-tech-codex",
     repoId: "R_kgDOT_W6ww",
     category: "Announcements",
-    categoryId: "",
+    categoryId: "DIC_kwDOT_W6w84DD3L_",
   },
   analytics: {
     gaMeasurementId: "",
