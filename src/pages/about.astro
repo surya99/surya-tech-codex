@@ -1,9 +1,53 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
 ---
-<BaseLayout title="About" description="Meet Suryakant, a .NET, Azure, and AI engineer growing toward world-class solution architecture.">
-  <section class="about-hero shell">
-    <div><span class="kicker">About the author</span><h1>I’m Suryakant—an engineer learning to think in <em>systems</em>.</h1></div>
-    <div><p>I have more than a decade of experience building applications with .NET, C#, Angular, SQL Server, Azure, and enterprise platforms.</p><p>Surya Tech Codex documents my journey toward AI architecture, technical leadership, and building products that solve real problems.</p><a class="button primary" href="https://github.com/surya99">View GitHub <span>↗</span></a></div>
+<BaseLayout title="About" description="Meet Suryakant, the engineer and creator behind Surya Tech Codex—building with .NET, Azure and AI while sharing practical knowledge.">
+  <section class="about-v3-hero">
+    <div class="about-v3-grid" aria-hidden="true"></div>
+    <div class="shell about-v3-layout">
+      <div class="about-v3-copy reveal">
+        <span class="about-v3-kicker">ABOUT THE CREATOR</span>
+        <h1>Engineer by experience.<br /><em>Builder by curiosity.</em></h1>
+        <p>I’m Suryakant—a .NET full-stack engineer and technical leader with more than a decade of experience turning business problems into dependable software.</p>
+        <p>Surya Tech Codex is where I learn deeply, build useful products, share practical knowledge, and help other engineers grow through .NET, Azure and AI.</p>
+        <a class="about-connect-jump" href="#connect">Connect with me <span>↓</span></a>
+      </div>
+      <div class="about-identity-card reveal reveal-delay">
+        <div class="identity-orbit"><i></i><i></i><i></i><span>&lt;S/&gt;</span></div>
+        <small>CURRENT DIRECTION</small><h2>.NET + Azure + AI</h2>
+        <p>Building toward world-class solution architecture and responsible AI products.</p>
+        <div><span><b>10+</b> years building</span><span><b>04</b> ways I contribute</span></div>
+      </div>
+    </div>
   </section>
+
+  <section class="about-purpose shell reveal">
+    <header><span>WHAT DRIVES ME</span><h2>Learn. Build. Share. Train.</h2><p>Technology has the greatest value when it solves a real problem and helps someone else move forward.</p></header>
+    <div class="about-purpose-grid">
+      <article><span>01</span><h3>Learn deeply</h3><p>Stay curious and understand the reason behind every design choice.</p></article>
+      <article><span>02</span><h3>Build practically</h3><p>Turn architecture and ideas into maintainable, production-aware software.</p></article>
+      <article><span>03</span><h3>Share openly</h3><p>Transform engineering lessons into articles, videos and community knowledge.</p></article>
+      <article><span>04</span><h3>Train others</h3><p>Help engineers connect fundamentals with real systems and career growth.</p></article>
+    </div>
+  </section>
+
+  <section id="connect" class="about-connect-section"><div class="shell">
+    <header class="about-connect-heading reveal"><span>LET’S CONNECT</span><h2>Continue the conversation.</h2><p>Follow my engineering journey, explore the code, or reach out about technology and training.</p></header>
+    <div class="about-connect-grid">
+      <a class="connect-card linkedin-card reveal" href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer me"><div class="connect-logo">in</div><div><small>PROFESSIONAL NETWORK</small><h3>Connect on LinkedIn</h3><p>Follow my architecture journey, professional learning and community updates.</p></div><b>Open LinkedIn ↗</b></a>
+      <a class="connect-card github-card reveal" href={siteConfig.github} target="_blank" rel="noopener noreferrer me"><div class="connect-logo">GH</div><div><small>CODE &amp; PROJECTS</small><h3>Follow on GitHub</h3><p>Explore current projects, experiments and the code behind Surya Tech Codex.</p></div><b>Open GitHub ↗</b></a>
+      <a class="connect-card email-card reveal" href="mailto:suryatechcodex@gmail.com"><div class="connect-logo">@</div><div><small>DIRECT CONVERSATION</small><h3>Send an email</h3><p>Talk about training, collaboration or a technology question.</p></div><b>Write to me ↗</b></a>
+    </div>
+  </div></section>
 </BaseLayout>
+
+<script>
+  const setupAboutReveal = () => {
+    const items = document.querySelectorAll<HTMLElement>(".reveal:not(.is-visible)");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { items.forEach((item) => item.classList.add("is-visible")); return; }
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } }), { threshold: .12 });
+    items.forEach((item) => observer.observe(item));
+  };
+  setupAboutReveal(); document.addEventListener("astro:page-load", setupAboutReveal);
+</script>
