@@ -1,6 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { videos, youtubeChannel } from "../data/videos";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+const latestArticle = articles[0];
 
 const emailLink = "mailto:suryatechcodex@gmail.com?subject=Training%20enquiry%20-%20Surya%20Tech%20Codex&body=Hello%20Suryakant%2C%0A%0AI%20am%20interested%20in%20training%20on%3A%0A%0AAudience%20or%20team%20size%3A%0A%0APreferred%20timeline%3A%0A%0AThank%20you.";
 const serviceSchema = {
@@ -25,7 +29,11 @@ const serviceSchema = {
         <span class="kicker">Technology training</span>
         <h1>Learn .NET and Azure through practical engineering context.</h1>
         <p>Structured technical training that connects concepts, code, architecture decisions, and production considerations—delivered by a working engineer with 10+ years of experience.</p>
-        <div class="training-actions"><a class="button button-primary" href={emailLink}>Discuss your training need <span>→</span></a><a class="text-button dark-link" href="mailto:suryatechcodex@gmail.com">suryatechcodex@gmail.com</a></div>
+        <div class="training-hero-actions">
+          <a class="training-primary-action" href={emailLink}><small>WORK WITH ME</small><strong>Discuss your training need</strong><span>→</span></a>
+          <a class="training-discovery-action" href={latestArticle ? `/articles/${latestArticle.id}/` : "/articles/"}><small>LEARN</small><strong>Read my latest article</strong><span>↗</span></a>
+          <a class="training-discovery-action video-action" href={youtubeChannel} target="_blank" rel="noopener noreferrer"><small>WATCH</small><strong>Watch my videos</strong><span>▶</span></a>
+        </div>
       </div>
       <aside class="trainer-card">
         <span>TRAINER PROFILE</span>

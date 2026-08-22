@@ -1,6 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { siteConfig } from "../config";
+import { youtubeChannel } from "../data/videos";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+const latestArticle = articles[0];
 ---
 <BaseLayout title="About" description="Meet Suryakant, the engineer and creator behind Surya Tech Codex—building with .NET, Azure and AI while sharing practical knowledge.">
   <section class="about-v3-hero">
@@ -11,7 +16,12 @@ import { siteConfig } from "../config";
         <h1>Engineer by experience.<br /><em>Builder by curiosity.</em></h1>
         <p>I’m Suryakant—a .NET full-stack engineer and technical leader with more than a decade of experience turning business problems into dependable software.</p>
         <p>Surya Tech Codex is where I learn deeply, build useful products, share practical knowledge, and help other engineers grow through .NET, Azure and AI.</p>
-        <a class="about-connect-jump" href="#connect">Connect with me <span>↓</span></a>
+        <nav class="about-action-rail" aria-label="Explore Surya Tech Codex">
+          <a class="primary" href="#connect"><small>CONNECT</small><strong>Connect with me</strong><span>↓</span></a>
+          <a href={latestArticle ? `/articles/${latestArticle.id}/` : "/articles/"}><small>READ</small><strong>Recent article</strong><span>↗</span></a>
+          <a href={youtubeChannel} target="_blank" rel="noopener noreferrer"><small>WATCH</small><strong>Latest videos</strong><span>▶</span></a>
+          <a href="/projects/"><small>BUILD</small><strong>Explore my work</strong><span>→</span></a>
+        </nav>
       </div>
       <div class="about-identity-card reveal reveal-delay">
         <div class="identity-orbit"><i></i><i></i><i></i><span>&lt;S/&gt;</span></div>
