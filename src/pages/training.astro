@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { videos, youtubeChannel } from "../data/videos";
 
 const emailLink = "mailto:suryatechcodex@gmail.com?subject=Training%20enquiry%20-%20Surya%20Tech%20Codex&body=Hello%20Suryakant%2C%0A%0AI%20am%20interested%20in%20training%20on%3A%0A%0AAudience%20or%20team%20size%3A%0A%0APreferred%20timeline%3A%0A%0AThank%20you.";
 const serviceSchema = {
@@ -32,6 +33,13 @@ const serviceSchema = {
         <p>.NET Full-Stack Engineer · Technical Lead · Azure &amp; AI Architecture Learner</p>
         <ul><li>10+ years of engineering experience</li><li>Production-focused explanations</li><li>Concepts connected to real systems</li><li>Clear, practical learning path</li></ul>
       </aside>
+    </div>
+  </section>
+
+  <section id="videos" class="section shell training-videos">
+    <header class="editorial-heading"><div><span class="section-label">Free video learning</span><h2>Recent lessons from Surya Tech Codex.</h2><p>Practical walkthroughs across AI, .NET and modern development. Watch on YouTube and continue learning at your own pace.</p></div><a class="text-button dark-link" href={youtubeChannel} target="_blank" rel="noopener noreferrer">Visit the YouTube channel ↗</a></header>
+    <div class="training-video-grid">
+      {videos.map((video, index) => <a class="training-video-card" href={video.url} target="_blank" rel="noopener noreferrer"><div class="training-video-thumb"><img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} loading={index === 0 ? "eager" : "lazy"} /><span>▶</span></div><div><small>{video.topic}</small><h3>{video.title}</h3><b>Watch on YouTube ↗</b></div></a>)}
     </div>
   </section>
 

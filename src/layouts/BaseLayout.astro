@@ -9,12 +9,14 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  pageClass?: string;
 }
 
 const {
   title = "Surya Tech Codex",
   description = "Practical notes on .NET, Azure, AI architecture, engineering careers, and building useful products.",
   image = "/social-card.png",
+  pageClass = "",
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -43,7 +45,7 @@ const fullTitle = title === "Surya Tech Codex" ? title : `${title} · Surya Tech
     <ClientRouter />
     <title>{fullTitle}</title>
   </head>
-  <body>
+  <body class={pageClass}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header />
     <main id="main-content"><slot /></main>

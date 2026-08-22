@@ -1,165 +1,68 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Subscribe from "../components/Subscribe.astro";
-import { siteConfig } from "../config";
 import { getCollection } from "astro:content";
 import { getReadingTime } from "../utils/readingTime";
-
+import { videos } from "../data/videos";
 const base = import.meta.env.BASE_URL;
-const articles = (await getCollection("articles", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
 const featured = articles[0];
-const recent = articles.slice(1, 5);
 ---
-<BaseLayout>
-  <section class="personal-hero">
-    <div class="shell personal-hero-grid">
-      <div class="hero-introduction reveal">
-        <p class="hello"><span>Hi, I’m</span> Suryakant.</p>
-        <h1>I learn deeply, build practical software, and help others grow through <em>knowledge.</em></h1>
-        <p class="hero-summary">I’m a .NET full-stack engineer and technical lead with 10+ years of experience. I share practical lessons through articles, community work, and training on .NET and Azure technologies.</p>
-        <div class="terminal-identity" aria-label="Architecting with .NET, building with AI, and sharing practical knowledge">
-          <span class="terminal-prompt" aria-hidden="true">~/surya $</span>
-          <span class="terminal-cycle" aria-hidden="true">
-            <span>architecting_with_dotnet</span>
-            <span>building_with_ai</span>
-            <span>sharing_practical_knowledge</span>
-          </span>
-          <i aria-hidden="true"></i>
-        </div>
-        <div class="hero-cta">
-          <a class="button button-primary" href={featured ? `${base}articles/${featured.id}/` : `${base}articles/`}>Read my latest note <span>→</span></a>
-          <a class="text-button dark-link" href={`${base}training/`}>Explore training ↗</a>
-        </div>
-        <div class="identity-points" aria-label="Professional focus">
-          <span><b>10+</b> years in software</span>
-          <span><b>.NET</b> engineering</span>
-          <span><b>Training</b> .NET and Azure</span>
-        </div>
+<BaseLayout pageClass="home-v3" description="Surya Tech Codex is a future-tech studio and knowledge platform for .NET, Azure, AI, practical engineering, products, and training.">
+  <section class="future-hero">
+    <div class="future-grid" aria-hidden="true"></div><div class="future-glow glow-one" aria-hidden="true"></div><div class="future-glow glow-two" aria-hidden="true"></div>
+    <div class="shell future-hero-grid">
+      <div class="future-copy reveal">
+        <div class="command-deck" aria-label="What Surya Tech Codex does"><div class="command-bar"><span></span><span></span><span></span><small>surya-tech-codex / mission</small></div><div class="command-line"><span class="command-prompt">~/surya $</span><strong id="command-text">build_future_with_dotnet</strong><i aria-hidden="true"></i></div><div class="command-output">✓ learning · building · sharing · training</div></div>
+        <p class="future-kicker"><span></span> Future-tech studio &amp; knowledge platform</p>
+        <h1>Engineering what’s next. <em>Sharing what works.</em></h1>
+        <p class="future-summary">A future-tech studio and knowledge platform where .NET, Azure, AI and real-world products come together.</p>
+        <div class="future-actions"><a class="future-button primary" href="#ecosystem">Explore the ecosystem <span>↘</span></a><a class="future-button ghost" href={`${base}projects/`}>See what we’re building <span>→</span></a></div>
+        <div class="future-proof"><span><b>10+</b><small>years engineering</small></span><span><b>01</b><small>flagship AI product</small></span><span><b>∞</b><small>knowledge shared</small></span></div>
       </div>
-      <div class="portrait-stage reveal reveal-delay">
-        <div class="portrait-shape"></div>
-        <div class="tech-orbit" aria-hidden="true">
-          <span class="orbit-ring"></span>
-          <b class="orbit-node node-dotnet">.NET</b>
-          <b class="orbit-node node-ai">AI</b>
-          <b class="orbit-node node-azure">AZ</b>
-        </div>
-        <img src="https://avatars.githubusercontent.com/u/11807962?v=4" alt="Suryakant" width="460" height="460" />
-        <a class="portrait-note note-top profile-note" href={siteConfig.linkedin} target="_blank" rel="noreferrer"><span class="linkedin-mark">in</span><span><small>LET'S CONNECT</small><strong>View LinkedIn profile ↗</strong></span></a>
-        <div class="portrait-note note-bottom"><span class="live-dot"></span><strong>Learning and building in public</strong></div>
-        <span class="portrait-code" aria-hidden="true">{ }</span>
+      <div class="technology-system reveal reveal-delay" aria-label="Surya Tech Codex technology ecosystem">
+        <div class="system-halo halo-a"></div><div class="system-halo halo-b"></div><div class="system-halo halo-c"></div><div class="system-core"><span>&lt;S/&gt;</span><small>BUILD · SHARE · GROW</small></div>
+        <div class="orbit orbit-one"><span class="tech-node dotnet">.NET</span></div><div class="orbit orbit-two"><span class="tech-node azure">AZURE</span></div><div class="orbit orbit-three"><span class="tech-node ai">AI</span></div>
+        <span class="signal signal-a"></span><span class="signal signal-b"></span><span class="signal signal-c"></span><p class="system-caption"><span>● SYSTEM ONLINE</span> Ideas become knowledge. Knowledge becomes impact.</p>
       </div>
-    </div>
+    </div><a class="scroll-cue" href="#ecosystem"><span>SCROLL TO EXPLORE</span><i>↓</i></a>
   </section>
 
-  <section class="verb-band" aria-label="What Suryakant does">
-    <div class="verb-marquee">
-      <div class="verb-track">
-        <div class="verb-set">
-          <span><b class="action-icon icon-learn" aria-hidden="true">◫</b>Learn</span>
-          <span><b class="action-icon icon-share" aria-hidden="true">↗</b>Share</span>
-          <span><b class="action-icon icon-write" aria-hidden="true">✎</b>Write</span>
-          <span><b class="action-icon icon-train" aria-hidden="true">◎</b>Train</span>
-        </div>
-        <div class="verb-set" aria-hidden="true">
-          <span><b class="action-icon icon-learn">◫</b>Learn</span>
-          <span><b class="action-icon icon-share">↗</b>Share</span>
-          <span><b class="action-icon icon-write">✎</b>Write</span>
-          <span><b class="action-icon icon-train">◎</b>Train</span>
-        </div>
-      </div>
+  <section id="ecosystem" class="future-section ecosystem-section"><div class="shell">
+    <header class="future-heading reveal"><div><span class="future-index">01 / ECOSYSTEM</span><h2>One brand. Four ways<br /><em>we create value.</em></h2></div><p>Surya Tech Codex connects engineering, education and entrepreneurship into one growing ecosystem.</p></header>
+    <div class="bento-grid">
+      <a class="bento-card build-card reveal" href={`${base}projects/`}><span class="card-number">01</span><div class="bento-icon">{ }</div><div><small>BUILD PRODUCTS</small><h3>Turn useful ideas into real systems.</h3><p>Architecture, engineering and AI-powered products designed in public.</p></div><b>Explore projects ↗</b></a>
+      <a class="bento-card knowledge-card reveal" href={`${base}articles/`}><span class="card-number">02</span><div class="knowledge-lines"><i></i><i></i><i></i></div><div><small>SHARE KNOWLEDGE</small><h3>Make hard-won lessons reusable.</h3><p>Practical field notes on .NET, Azure, AI and software architecture.</p></div><b>Read articles ↗</b></a>
+      <a class="bento-card training-card-home reveal" href={`${base}training/`}><span class="card-number">03</span><div class="pulse-orb"><i></i></div><div><small>TRAIN ENGINEERS</small><h3>Learn through production context.</h3><p>Focused training that connects concepts, code and system decisions.</p></div><b>Explore training ↗</b></a>
+      <a class="bento-card community-card reveal" href={`${base}community/`}><span class="card-number">04</span><div class="community-nodes"><i></i><i></i><i></i><i></i></div><div><small>GROW COMMUNITY</small><h3>Progress is better when shared.</h3><p>Learning, mentoring and conversations that help engineers move forward.</p></div><b>Join the journey ↗</b></a>
     </div>
-  </section>
+  </div></section>
 
-  <section class="section writing-section shell reveal">
-    <header class="editorial-heading">
-      <div><span class="section-label">Latest writing</span><h2>Notes for engineers who care about the <em>why.</em></h2></div>
-      <a href={`${base}articles/`} class="text-button dark-link">All articles →</a>
-    </header>
-    {featured && (
-      <div class="writing-layout">
-        <article class="featured-story">
-          <div class="story-art" aria-hidden="true"><span>FIELD NOTE / 001</span><strong>SQL</strong><div></div></div>
-          <div class="story-copy">
-            <div class="article-meta"><span>{featured.data.category}</span><time>{featured.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time><span>{featured.data.readingTime ?? getReadingTime(featured.body ?? "")}</span></div>
-            <h3><a href={`${base}articles/${featured.id}/`}>{featured.data.title}</a></h3>
-            <p>{featured.data.description}</p>
-            <a href={`${base}articles/${featured.id}/`} class="story-link">Read the field note <span>→</span></a>
-          </div>
-        </article>
-        <aside class="recent-notes">
-          <div class="recent-heading"><span>Recent notes</span><small>{String(articles.length).padStart(2, "0")} published</small></div>
-          {recent.length ? recent.map((article) => (
-            <a href={`${base}articles/${article.id}/`}><small>{article.data.category}</small><strong>{article.data.title}</strong><span>{article.data.readingTime ?? getReadingTime(article.body ?? "")} →</span></a>
-          )) : <div class="next-note"><small>THE NEXT NOTE</small><strong>More practical writing is being prepared.</strong><p>Follow the publication to receive the next article automatically.</p><a href={`${base}subscribe/`}>Choose how to follow ↗</a></div>}
-        </aside>
-      </div>
-    )}
-  </section>
+  <section class="future-section project-feature"><div class="shell project-feature-grid">
+    <div class="project-feature-copy reveal"><span class="future-index">02 / NOW BUILDING</span><div class="live-label"><i></i> FLAGSHIP PROJECT · IN DEVELOPMENT</div><h2>JanMitra <em>AI</em></h2><p>An enterprise AI platform exploring how Azure AI, .NET, search and intelligent agents can make citizen services easier to understand and access.</p><div class="project-tags"><span>Azure AI</span><span>ASP.NET Core</span><span>Clean Architecture</span><span>Responsible AI</span></div><a class="future-button primary" href={`${base}projects/`}>Explore JanMitra AI <span>→</span></a></div>
+    <div class="system-window reveal reveal-delay"><div class="system-window-bar"><span>janmitra-ai / system-map</span><small>● LIVE BUILD</small></div><div class="system-map"><div class="map-node citizen"><small>EXPERIENCE</small><strong>Citizen</strong></div><i class="map-link link-one"></i><div class="map-node platform"><small>PLATFORM</small><strong>.NET API</strong></div><i class="map-link link-two"></i><div class="map-node intelligence"><small>INTELLIGENCE</small><strong>Azure AI</strong></div><div class="map-orbit"></div></div><div class="system-log"><span>ARCHITECTURE LOG</span><p>&gt; Security first<br />&gt; Cost aware<br />&gt; Built to evolve</p></div></div>
+  </div></section>
 
-  <section class="section training-preview shell reveal">
-    <div class="training-preview-copy">
-      <span class="section-label">Professional training</span>
-      <h2>Practical .NET and Azure training shaped by real engineering work.</h2>
-      <p>I help developers and teams strengthen fundamentals, understand production patterns, and connect individual technologies to the wider system.</p>
-      <div class="training-topics"><span>C# &amp; .NET</span><span>ASP.NET Core</span><span>Azure</span><span>Architecture foundations</span></div>
-      <div class="training-actions"><a class="button button-primary" href={`${base}training/`}>Explore training <span>→</span></a><a class="text-button dark-link" href="mailto:suryatechcodex@gmail.com?subject=Training%20enquiry%20-%20Surya%20Tech%20Codex">Discuss a training need ↗</a></div>
+  <section class="future-section signal-section"><div class="shell">
+    <header class="future-heading compact reveal"><div><span class="future-index">03 / LATEST SIGNALS</span><h2>Learn from what<br /><em>we’re exploring now.</em></h2></div><a class="future-text-link" href={`${base}articles/`}>View all knowledge →</a></header>
+    <div class="signal-grid">
+      {featured && <article class="latest-note reveal"><div class="signal-type"><span>FIELD NOTE</span><small>{featured.data.category}</small></div><h3><a href={`${base}articles/${featured.id}/`}>{featured.data.title}</a></h3><p>{featured.data.description}</p><footer><time>{featured.data.publishedDate.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}</time><span>{featured.data.readingTime ?? getReadingTime(featured.body ?? "")}</span><a href={`${base}articles/${featured.id}/`}>Read article →</a></footer></article>}
+      <div class="video-spotlight reveal" data-video-spotlight><div class="video-label"><span>RECENT ON YOUTUBE</span><small>AUTO PLAYLIST</small></div><a class="video-stage" href={`${base}training/#videos`} aria-label="See videos on the Training page">{videos.map((video, index) => <article class:list={["video-slide", { active: index === 0 }]} data-slide={index}><img src={video.thumbnail} alt="" loading={index === 0 ? "eager" : "lazy"} /><span class="video-overlay"></span><i class="play-button">▶</i><div><small>{video.topic}</small><h3>{video.title}</h3><b>Explore video library →</b></div></article>)}</a><div class="video-controls">{videos.map((video, index) => <button class:list={[{ active: index === 0 }]} type="button" data-video-button={index} aria-label={`Show video ${index + 1}: ${video.title}`}><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div></div>
     </div>
-    <div class="learning-loop" aria-label="Learn, share, write, and train">
-      <span>01 <strong>Learn</strong><small>Keep knowledge current</small></span>
-      <span>02 <strong>Share</strong><small>Help the community</small></span>
-      <span>03 <strong>Write</strong><small>Make learning reusable</small></span>
-      <span>04 <strong>Train</strong><small>Help others apply it</small></span>
-    </div>
-  </section>
+  </div></section>
 
-  <section class="section project-spotlight shell reveal">
-    <div class="project-copy">
-      <span class="section-label">Currently building</span>
-      <div class="status-line"><span class="live-dot"></span> FLAGSHIP PROJECT · IN PROGRESS</div>
-      <h2>JanMitra AI</h2>
-      <p>An enterprise AI platform exploring how Azure AI, .NET, search, document intelligence, and agents can make citizen services easier to understand and access.</p>
-      <ul><li>Clean Architecture</li><li>Security first</li><li>Cost aware</li><li>Portfolio in public</li></ul>
-      <a class="button button-dark" href={`${base}projects/`}>Explore the project <span>→</span></a>
-    </div>
-    <div class="architecture-window" aria-label="JanMitra AI architecture preview">
-      <div class="window-bar"><span></span><span></span><span></span><small>janmitra-ai / architecture</small></div>
-      <div class="architecture-flow animated-flow">
-        <div class="flow-node user-node"><small>EXPERIENCE</small><strong>Web · Voice</strong></div>
-        <i>→</i><div class="flow-node api-node"><small>PLATFORM</small><strong>ASP.NET Core</strong></div>
-        <i>→</i><div class="flow-node ai-node"><small>INTELLIGENCE</small><strong>Azure AI</strong></div>
-      </div>
-      <div class="architecture-caption"><span>DECISION LOG</span><p>Why this design? What are the trade-offs? How will it scale responsibly?</p></div>
-    </div>
-  </section>
-
-  <section class="career-note reveal">
-    <div class="shell career-note-grid">
-      <div><span class="section-label">The journey</span><blockquote>“Becoming an architect is not a title change. It is learning to see the whole system.”</blockquote></div>
-      <div><p>I’m documenting the transition from experienced full-stack engineer to AI-focused solution architect—the learning, interviews, architecture decisions, and product work behind it.</p><a href={`${base}career/`} class="text-button">Follow the architect journey →</a></div>
-    </div>
-  </section>
-
-  <section class="shell home-subscribe"><Subscribe /></section>
+  <section class="future-cta"><div class="shell reveal"><span>&lt;S/&gt;</span><p>BUILD · LEARN · SHARE · GROW</p><h2>The future is not something we wait for.<br /><em>It is something we build.</em></h2><div><a class="future-button primary" href={`${base}training/`}>Explore training <span>→</span></a><a class="future-button ghost" href="mailto:suryatechcodex@gmail.com">Start a conversation <span>↗</span></a></div></div></section>
 </BaseLayout>
 
 <script>
-  const setupReveal = () => {
+  const commands = ["build_future_with_dotnet", "architect_on_azure", "create_with_ai", "share_what_works", "train_engineers_to_grow"];
+  const setupHome = () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const items = document.querySelectorAll<HTMLElement>(".reveal:not(.is-visible)");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      items.forEach((item) => item.classList.add("is-visible"));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.12 });
-    items.forEach((item) => observer.observe(item));
+    if (reduced) items.forEach((item) => item.classList.add("is-visible")); else { const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } }), { threshold: .12 }); items.forEach((item) => observer.observe(item)); }
+    const command = document.querySelector<HTMLElement>("#command-text");
+    if (command && !command.dataset.ready && !reduced) { command.dataset.ready = "true"; let n = 0; window.setInterval(() => { command.classList.add("changing"); window.setTimeout(() => { n = (n + 1) % commands.length; command.textContent = commands[n]; command.classList.remove("changing"); }, 220); }, 2800); }
+    const spotlight = document.querySelector<HTMLElement>("[data-video-spotlight]");
+    if (spotlight && !spotlight.dataset.ready) { spotlight.dataset.ready = "true"; const slides = [...spotlight.querySelectorAll<HTMLElement>("[data-slide]")]; const buttons = [...spotlight.querySelectorAll<HTMLButtonElement>("[data-video-button]")]; let active = 0; const show = (next: number) => { active = next; slides.forEach((slide, i) => slide.classList.toggle("active", i === active)); buttons.forEach((button, i) => button.classList.toggle("active", i === active)); }; buttons.forEach((button, i) => button.addEventListener("click", () => show(i))); if (!reduced) window.setInterval(() => show((active + 1) % slides.length), 6000); }
   };
-  setupReveal();
-  document.addEventListener("astro:page-load", setupReveal);
+  setupHome(); document.addEventListener("astro:page-load", setupHome);
 </script>
