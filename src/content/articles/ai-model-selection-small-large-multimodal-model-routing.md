@@ -1,5 +1,5 @@
 ---
-title: "AI Model Selection Explained Simply: Small, Large, Multimodal, and Model Routing"
+title: "AI Model Selection: Small, Large, Multimodal & Model Routing"
 description: "A practical guide to choosing the right AI model for a workload, including small and large language models, multimodal models, embeddings, and model routing."
 publishedDate: 2026-09-03
 category: "AI Architecture"
