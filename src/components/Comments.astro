@@ -1,13 +1,17 @@
 ---
 import { siteConfig } from "../config";
+const { context = "article" } = Astro.props;
 const enabled = Boolean(siteConfig.giscus.repoId && siteConfig.giscus.categoryId);
+const isNews = context === "news";
 ---
 {enabled && (
   <section class="comments" aria-labelledby="discussion-title">
     <div class="comments-heading">
-      <span class="kicker">Reader discussion</span>
-      <h2 id="discussion-title">Questions, corrections, or a different approach?</h2>
-      <p>Share what worked for you or ask a focused question. Constructive technical discussion is always welcome.</p>
+      <span class="kicker">React and discuss</span>
+      <h2 id="discussion-title">{isNews ? "Was this update useful?" : "Questions, corrections, or a different approach?"}</h2>
+      <p>{isNews
+        ? "Use a reaction to support the update, or sign in with GitHub to leave a question, correction, or practical perspective."
+        : "Use a reaction to support the article, or sign in with GitHub to share what worked for you or ask a focused question."}</p>
     </div>
     <script
       is:inline
