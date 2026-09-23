@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const updates = (await getCollection("techNews", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+const featured = updates.find(({ data }) => data.featured) ?? updates[0];
+const remaining = updates.filter(({ id }) => id !== featured?.id);
+const formatDate = (date: Date) => date.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+---
+<BaseLayout title="Tech Intelligence" description="Curated AI, .NET, Azure, cloud, and developer technology news with practical context for engineers and architects.">
+  <main class="intelligence-page">
+    <section class="intelligence-hero">
+      <div class="intelligence-grid" aria-hidden="true"></div>
+      <div class="shell intelligence-hero-layout">
+        <div>
+          <span class="intelligence-kicker"><i></i> Curated technology signal</span>
+          <h1>Keep up with technology.<br/><em>Understand what matters.</em></h1>
+          <p>Important updates across AI, .NET, Azure, cloud, and developer tools—reviewed and explained with practical context.</p>
+          <div class="intelligence-principles"><span>Official sources</span><span>Practical impact</span><span>Clear takeaways</span></div>
+        </div>
+        <aside class="signal-console" aria-label="Coverage topics">
+          <header><span></span><span></span><span></span><small>signal-monitor</small></header>
+          <div><small>TRACKING</small><strong>AI · .NET · AZURE</strong></div>
+          <div><small>FILTER</small><strong>What changed?</strong></div>
+          <div><small>OUTPUT</small><strong>Why it matters.</strong></div>
+          <footer><i></i> CURATION ACTIVE</footer>
+        </aside>
+      </div>
+    </section>
+
+    <section class="shell intelligence-feed">
+      <header class="intelligence-feed-heading">
+        <div><span class="section-label">Latest signal</span><h2>Technology updates,<br/><em>without the noise.</em></h2></div>
+        <p>Scan the briefing, open an update, and follow the official source when you need deeper detail.</p>
+      </header>
+
+      <nav class="intelligence-topics" aria-label="Technology topics">
+        <span class="active">All updates</span><span>AI</span><span>.NET</span><span>Azure</span><span>Cloud</span><span>Developer Tools</span>
+      </nav>
+
+      {featured && (
+        <a class="featured-signal" href={`/tech-intelligence/${featured.id}/`}>
+          <div class="featured-signal-art" aria-hidden="true"><span>01</span><div class="signal-radar"><i></i><i></i><i></i></div><small>CURATED BRIEFING</small></div>
+          <div class="featured-signal-copy">
+            <div class="signal-meta"><span>{featured.data.topic}</span><time datetime={featured.data.publishedDate.toISOString()}>{formatDate(featured.data.publishedDate)}</time></div>
+            <h2>{featured.data.title}</h2>
+            <p>{featured.data.summary}</p>
+            <strong>Read the complete update <b aria-hidden="true">↗</b></strong>
+          </div>
+        </a>
+      )}
+
+      {remaining.length > 0 && <div class="signal-list">
+        {remaining.map(({ id, data }) => <a href={`/tech-intelligence/${id}/`}><div class="signal-meta"><span>{data.topic}</span><time datetime={data.publishedDate.toISOString()}>{formatDate(data.publishedDate)}</time></div><h3>{data.title}</h3><p>{data.summary}</p><b aria-hidden="true">↗</b></a>)}
+      </div>}
+    </section>
+  </main>
+</BaseLayout>
