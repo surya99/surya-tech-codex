@@ -1,6 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReadingProgress from "../../components/ReadingProgress.astro";
+import ShareBar from "../../components/ShareBar.astro";
+import Subscribe from "../../components/Subscribe.astro";
+import Comments from "../../components/Comments.astro";
+import { getReadingTime } from "../../utils/readingTime";
 
 export async function getStaticPaths() {
   const updates = await getCollection("techNews", ({ data }) => !data.draft);
@@ -8,18 +13,51 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const published = entry.data.publishedDate.toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric", timeZone: "UTC" });
+const publishedIso = entry.data.publishedDate.toISOString();
+const modifiedIso = (entry.data.updatedDate ?? entry.data.publishedDate).toISOString();
+const readingTime = getReadingTime(entry.body ?? "");
+const articleUrl = new URL(Astro.url.pathname, Astro.site);
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: entry.data.title,
+  description: entry.data.summary,
+  datePublished: publishedIso,
+  dateModified: modifiedIso,
+  author: { "@type": "Person", name: "Suryakant", url: "https://www.linkedin.com/in/suryarock/" },
+  publisher: { "@type": "Organization", name: "Surya Tech Codex", url: "https://suryatechcodex.com" },
+  mainEntityOfPage: articleUrl.toString(),
+  articleSection: entry.data.topic,
+};
 ---
 <BaseLayout title={entry.data.title} description={entry.data.summary}>
-  <main class="signal-detail shell">
-    <a class="back-link" href="/tech-intelligence/">← Back to Tech Intelligence</a>
-    <header>
-      <div class="signal-meta"><span>{entry.data.topic}</span><time datetime={entry.data.publishedDate.toISOString()}>{published}</time></div>
+  <ReadingProgress />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <article class="post shell signal-detail">
+    <header class="post-header">
+      <a class="back-link" href="/tech-intelligence/">← Back to Tech Intelligence</a>
+      <div class="article-meta"><span>{entry.data.topic}</span><time datetime={publishedIso}>{published}</time><span class="reading-time">{readingTime}</span></div>
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
+      <div class="author-line">
+        <img src="https://avatars.githubusercontent.com/u/11807962?v=4" alt="Suryakant" width="48" height="48" />
+        <div><strong>Suryakant</strong><span>.NET + AI Architect · Curating practical technology updates</span></div>
+      </div>
     </header>
-    <article class="prose"><Content /></article>
+    <div class="article-shell">
+      <ShareBar title={entry.data.title} url={articleUrl} />
+      <div class="prose"><Content /></div>
+      {headings.length > 1 && (
+        <aside class="table-of-contents" aria-label="Table of contents">
+          <span>On this page</span>
+          {headings.filter((heading) => heading.depth <= 3).map((heading) => <a href={`#${heading.slug}`} class={`depth-${heading.depth}`}>{heading.text}</a>)}
+        </aside>
+      )}
+    </div>
     {entry.data.sourceUrl && <aside class="source-note"><span>PRIMARY SOURCE</span><p>Continue with the original announcement for complete product documentation and release details.</p><a href={entry.data.sourceUrl} target="_blank" rel="noopener noreferrer">Read on {entry.data.sourceName ?? "the official source"} ↗</a></aside>}
-  </main>
+    <Subscribe compact />
+    <Comments context="news" />
+  </article>
 </BaseLayout>
