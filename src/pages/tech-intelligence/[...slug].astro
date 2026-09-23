@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const updates = await getCollection("techNews", ({ data }) => !data.draft);
+  return updates.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const published = entry.data.publishedDate.toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" });
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+  <main class="signal-detail shell">
+    <a class="back-link" href="/tech-intelligence/">← Back to Tech Intelligence</a>
+    <header>
+      <div class="signal-meta"><span>{entry.data.topic}</span><time datetime={entry.data.publishedDate.toISOString()}>{published}</time></div>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.summary}</p>
+    </header>
+    <article class="prose"><Content /></article>
+    {entry.data.sourceUrl && <aside class="source-note"><span>PRIMARY SOURCE</span><p>Continue with the original announcement for complete product documentation and release details.</p><a href={entry.data.sourceUrl} target="_blank" rel="noopener noreferrer">Read on {entry.data.sourceName ?? "the official source"} ↗</a></aside>}
+  </main>
+</BaseLayout>
