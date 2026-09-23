@@ -1,53 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const feedUrl = "https://suryatechcodex.com/rss.xml";
-const feedlyUrl = `https://feedly.com/i/subscription/feed/${encodeURIComponent(feedUrl)}`;
-const inoreaderUrl = `https://www.inoreader.com/?add_feed=${encodeURIComponent(feedUrl)}`;
 ---
-<BaseLayout title="Follow Surya Tech Codex" description="Follow new Surya Tech Codex articles using Feedly, Inoreader, or any RSS reader.">
+<BaseLayout title="Follow Surya Tech Codex" description="Follow Surya Tech Codex on LinkedIn for technology briefings, articles, videos, and practical engineering insights.">
   <section class="page-hero shell subscribe-hero">
-    <span class="kicker">Never miss a field note</span>
-    <h1>Follow in the way that <em>works for you.</em></h1>
-    <p>RSS delivers every new article directly to your reader—without algorithms, advertisements, or an overflowing inbox.</p>
+    <span class="kicker">One clear way to stay updated</span>
+    <h1>Follow the journey.<br /><em>Skip the clutter.</em></h1>
+    <p>New Tech Intelligence briefings, articles, videos, and project updates are shared through the official Surya Tech Codex LinkedIn profile.</p>
   </section>
-  <section class="shell follow-options" aria-label="Subscription options">
-    <a class="follow-card" href={feedlyUrl} target="_blank" rel="noopener noreferrer">
-      <span class="follow-icon feedly-icon" aria-hidden="true">F</span>
-      <div><small>RECOMMENDED</small><h2>Follow with Feedly</h2><p>Add Surya Tech Codex to a clean reading list.</p></div><b>↗</b>
-    </a>
-    <a class="follow-card" href={inoreaderUrl} target="_blank" rel="noopener noreferrer">
-      <span class="follow-icon inoreader-icon" aria-hidden="true">I</span>
-      <div><small>RSS READER</small><h2>Follow with Inoreader</h2><p>Receive new articles in your Inoreader account.</p></div><b>↗</b>
-    </a>
-    <div class="follow-card copy-feed-card">
-      <span class="follow-icon copy-icon" aria-hidden="true">⌁</span>
-      <div><small>ANY RSS APP</small><h2>Copy the feed address</h2><p>Paste it into the RSS reader you already use.</p></div>
-      <button class="copy-feed" type="button" data-feed={feedUrl}>Copy</button>
-      <span class="feed-copy-status" aria-live="polite"></span>
-    </div>
-  </section>
-  <section class="shell follow-connect-card" aria-label="Connect with Suryakant">
+  <section class="shell follow-connect-card follow-primary-card" aria-label="Follow Suryakant on LinkedIn">
     <div class="follow-connect-mark" aria-hidden="true">in</div>
-    <div><small>MORE THAN A FEED</small><h2>Let’s stay connected.</h2><p>Follow the articles through RSS, or connect directly for engineering insights, project updates, training and professional conversations.</p></div>
-    <a href="/about/#connect"><span>CONNECT</span><strong>Connect with me</strong><b>→</b></a>
+    <div><small>RECOMMENDED</small><h2>Follow Surya Tech Codex on LinkedIn.</h2><p>LinkedIn gives you one familiar place for new-post announcements and lets Suryakant see and engage with the people following the journey.</p></div>
+    <a href="https://www.linkedin.com/in/suryarock/" target="_blank" rel="noopener noreferrer"><span>FOLLOW</span><strong>Open LinkedIn</strong><b>↗</b></a>
   </section>
-  <div class="shell raw-feed-note">
-    <p>Already know RSS? <a href={feedUrl}>Open the raw XML feed →</a></p>
+  <div class="shell raw-feed-note follow-note">
+    <p>An email newsletter will be added only after a verified subscription service is connected, so the website never asks visitors to use a form that cannot deliver updates.</p>
   </div>
 </BaseLayout>
-
-<script>
-  const button = document.querySelector<HTMLButtonElement>(".copy-feed");
-  const status = document.querySelector<HTMLElement>(".feed-copy-status");
-  button?.addEventListener("click", async () => {
-    const feed = button.dataset.feed ?? "";
-    try {
-      await navigator.clipboard.writeText(feed);
-      button.textContent = "Copied";
-      if (status) status.textContent = "Feed address copied to clipboard.";
-    } catch {
-      window.prompt("Copy this RSS feed address:", feed);
-    }
-  });
-</script>
