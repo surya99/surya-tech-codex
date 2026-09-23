@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const published = entry.data.publishedDate.toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" });
+const published = entry.data.publishedDate.toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric", timeZone: "UTC" });
 ---
 <BaseLayout title={entry.data.title} description={entry.data.summary}>
   <main class="signal-detail shell">

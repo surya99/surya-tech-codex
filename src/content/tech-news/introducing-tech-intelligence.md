@@ -3,7 +3,7 @@ title: "Introducing Tech Intelligence"
 summary: "A curated technology briefing that turns important product announcements into concise, practical guidance for working developers."
 publishedDate: 2026-09-23
 topic: "Platform Update"
-featured: true
+featured: false
 draft: false
 ---
 
